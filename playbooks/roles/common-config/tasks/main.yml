@@ -1,0 +1,26 @@
+---
+
+# Set default variables
+- import_tasks: set-default-variables.yml
+
+- name: Copy the English BIP-0039 wordlist
+  copy:
+    src: english.txt
+    dest: /tmp
+#    owner: root
+#    group: root
+    mode: 0644
+
+- name: Generate random VPN client names
+  shell: "{{ streisand_word_gen.identifier_max_len_15 }}"
+  register: "vpn_client_names"
+  with_sequence: count={{ vpn_clients }}
+
+- name: Ensure the Streisand gateway directory exists
+  file:
+    path: "{{ streisand_gateway_location }}"
+#    owner: www-data
+#    group: www-data
+    mode: 0750
+    state: directory
+

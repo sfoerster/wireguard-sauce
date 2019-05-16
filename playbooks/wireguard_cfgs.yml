@@ -1,0 +1,13 @@
+---
+
+- name: Wireguard config setup
+# ========================================================
+  hosts: localhost 
+
+  #remote_user: "root"
+  #become: true
+
+  roles:
+    - role: common-config
+    - role: wireguard-config
+...
